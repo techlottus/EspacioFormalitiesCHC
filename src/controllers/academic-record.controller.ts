@@ -78,9 +78,9 @@ export class AcademicRecordController {
     // FETCH DATA
     const {delivery, campus} =
       await this.academicRecordService.commonPropertiesService.
-      fetchDeliveryAndCampusArrays(
-        studentData.school,
-      );
+        fetchDeliveryAndCampusArrays(
+          studentData.school,
+        );
     // SEND RESPONSE
     const data = {delivery, campus};
     return successfulChcObject(data, 200, getAcademicRecordStatusOk);
@@ -117,15 +117,15 @@ export class AcademicRecordController {
     );
 
     // SET "SERVICIO" FIELDS
-    const servicioObject =
+    const {serviceObject, saveProcedureData} =
       await this.academicRecordService.setAcademicRecordServiceProperties(
         studentData,
         academicRecordRB,
       );
 
-    // SET SF REQUEST BODY
+    // SET SALES FORCE REQUEST BODY
     const sfRequestBody = await this.proceduresService.setSfRequestBody(
-      servicioObject,
+      serviceObject,
       academicRecordRB.files,
       studentData,
       ACADEMIC_RECORD,
@@ -147,7 +147,8 @@ export class AcademicRecordController {
         studentData,
       );
 
-    await this.qrValidationRepository.saveProcedureData(
+    // SAVE PROCEDURE DATA FOR FUTURE VALIDATION
+    if (saveProcedureData) await this.qrValidationRepository.saveProcedureData(
       studentData,
       'Historial Academico',
       ticketNumber

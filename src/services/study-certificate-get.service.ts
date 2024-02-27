@@ -34,7 +34,6 @@ import {
   StudyCertificateRepository,
 } from '../repositories';
 import {
-  changeSchoolNameByModality,
   costsError,
   logMethodAccessDebug,
   logMethodAccessInfo,
@@ -177,10 +176,10 @@ export class StudyCertificateGetService {
     logMethodAccessInfo(this.setCertificateWithCostArray.name);
     const {school, modality} = studentData;
     //verify levelcode for change name of school by UANE only levels 1T, BO, !P
-    const changedSchool = await changeSchoolNameByModality(
+    const changedSchool =
+    await this.academicLevelsRepository.changeSchoolNameByModality(
       studentData.levelCode,
       school,
-      this.academicLevelsRepository,
     );
     // Fetch detail codes
     let dcStudyCertArray: DetailCodes[];

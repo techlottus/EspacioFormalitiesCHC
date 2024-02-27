@@ -1,6 +1,20 @@
 
 # Changelog - SchoolServices - ConstHistCert
 
+## [2.4.0] - 2024-02-27
+
+René Alejandro Rivas
+
+### Changed:
+- Academic record unit test updated
+- AcademicRecord controller: validation added to save data just for digital procedures
+- AcademicRecord Service: now validates delivery label and sends a flag to the
+controller to state if delivery is digital or not
+- changeSchoolNameByModality() moved from utilities to AcademicLevelsRepository
+to avoid circular dependency
+- ProofOfStudyService, StudyCertificateService & TransactionNumberService now consume
+changeSchoolNameByModality() from AcademicLevelsRepository
+
 ## [2.3.2] - 2024-02-15
 
 René Alejandro Rivas
