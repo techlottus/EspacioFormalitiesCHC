@@ -12,7 +12,6 @@ import {
 import {StudentData} from '../interfaces';
 import {AcademicLevelsRepository, DetailCodesRepository} from '../repositories';
 import {
-  changeSchoolNameByModality,
   getStudentData,
   logMethodAccessDebug,
   logMethodAccessInfo,
@@ -42,10 +41,10 @@ export class TransactionNumberService {
   ): Promise<number | null> {
     logMethodAccessDebug(this.getTransactionNumber.name);
     // verify levelcode to change name school to 'UTCBYUANE' or 'ULABYUANE' only levels 1T, BO, !P
-    const changedSchool = await changeSchoolNameByModality(
+    const changedSchool =
+    await this.academicLevelsRepository.changeSchoolNameByModality(
       studentData.levelCode,
       studentData.school,
-      this.academicLevelsRepository,
     );
     const detailCode = await this.fetchDetailCode(
       procedure,

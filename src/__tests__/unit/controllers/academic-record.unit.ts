@@ -58,7 +58,7 @@ describe('AcademicRecordController', () => {
     it('returns arrays of delivery types and campus', async () => {
       // stubs:
       academicRecordService.stubs.setAcademicRecordServiceProperties.resolves(
-        servicioFields
+        {serviceObject: servicioFields, saveProcedureData: true}
       );
       proceduresService.stubs.requestProcedure.resolves(
         ticketNumberDummy

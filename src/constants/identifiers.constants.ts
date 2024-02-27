@@ -47,6 +47,8 @@ export const PROGRAMA_DE_ULA_ID = 'ula-institution-social-service';
 
 // Values
 export const CAMPUS_DELIVERY_VALUE = 'ENTE7E2C6';
+export const DIGITAL_UTC_LABEL = "Únicamente en Formato Digital";
+export const DIGITAL_ULA_LABEL = "Únicamente lo requiero en Formato Digital";
 export const TOTAL_STUDY_CERT_VALUE = 'CERC11T5';
 
 // Study Certificate

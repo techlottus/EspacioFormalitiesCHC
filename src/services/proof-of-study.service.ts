@@ -32,7 +32,6 @@ import {
   ProofOfStudyRepository,
 } from '../repositories';
 import {
-  changeSchoolNameByModality,
   costsError,
   logMethodAccessDebug,
   logMethodAccessInfo,
@@ -100,11 +99,11 @@ export class ProofOfStudyService {
       `Fetching detailCodes for school: ${school} and procedure: ${procedure}`,
     );
     //verify levelcode for change name of school by UANE only levels 1T, BO, !P
-    const changedSchool = await changeSchoolNameByModality(
-      academicLevel,
-      school,
-      this.academicLevelsRepository,
-    );
+    const changedSchool =
+      await this.academicLevelsRepository.changeSchoolNameByModality(
+        academicLevel,
+        school,
+      );
     let detailIdProofOfStudyArray = await this.detailCodesRepository.find({
       where: {school: changedSchool, procedure},
     });
@@ -191,11 +190,11 @@ export class ProofOfStudyService {
   ): Promise<ProcedureWithCost[]> {
     logMethodAccessDebug(this.getProofOfStudyWithCostsArrayForUla.name);
     //verify levelcode for change name school to 'UTCBYUANE' or 'ULABYUANE' only levels 1T, BO, !P
-    const changedSchool = await changeSchoolNameByModality(
-      academicLevel,
-      school,
-      this.academicLevelsRepository,
-    );
+    const changedSchool =
+      await this.academicLevelsRepository.changeSchoolNameByModality(
+        academicLevel,
+        school,
+      );
     // FETCH PROOFOFSTUDIES AND DETAIL CODES COLLECTIONS
     const procedure = PROOF_OF_STUDY;
     const filter = {
