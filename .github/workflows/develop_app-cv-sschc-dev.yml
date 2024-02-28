@@ -37,7 +37,7 @@ jobs:
       id: get-short-gitver
       run: |
         short=$(echo ${{steps.gitversion.outputs.version}} | cut -c 1-7)
-        short+=$(echo develop)
+        short+=$(echo develop-)
         short+=$(echo ${{steps.gitversion.outputs.version}} | cut -c 23-)
         echo "::set-output name=short::$short"
         echo ${{ steps.get-short-gitver.outputs.short }}
