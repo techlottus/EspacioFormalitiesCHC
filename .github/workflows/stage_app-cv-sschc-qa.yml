@@ -59,7 +59,7 @@ jobs:
       uses: docker/build-push-action@v3
       with:
         push: true
-        tags: lottus.azurecr.io/cv-sschc:${{ steps.get-short-gitver.outputs.short }}
+        tags: lottus.azurecr.io/cv-sschc:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -77,4 +77,4 @@ jobs:
         app-name: 'app-cv-sschc-qa'
         slot-name: 'production'
         publish-profile: ${{ secrets.AzureAppService_PublishProfile_645d8643fe0a450ea25b2dac7125a5ec }}
-        images: 'lottus.azurecr.io/cv-sschc:${{ steps.get-short-gitver.outputs.short }}'
+        images: 'lottus.azurecr.io/cv-sschc:${{ github.sha }}'
