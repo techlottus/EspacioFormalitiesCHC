@@ -2,8 +2,6 @@
 ///////////////   UTILITIES   ////////////////
 
 import {logger} from '.';
-import {SUBSCHOOL, ULABYUANE, UTC, UTCBYUANE} from '../constants';
-import {AcademicLevelsRepository} from '../repositories';
 
 export const logMethodAccessInfo = (methodName: string) => {
   logger.info(`${methodName}() accessed`);
@@ -80,21 +78,4 @@ export const parseDate = (input: string) => {
   const parts = input.match(/(\d+)/g);
   // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
   return new Date(+parts![0], +parts![1] - 1, +parts![2]); // months are 0-based
-};
-
-//change name of school to 'UTCBYUANE' or 'ULABYUANE' if are the modalities  1T, BO, 1P and school
-export const changeSchoolNameByModality = async (
-  levelCode: string,
-  school: string,
-  academicLevelsRepository: AcademicLevelsRepository,
-) => {
-  const levelsFilter = {school, identifier: SUBSCHOOL};
-  const levelsDoc = await academicLevelsRepository.findOne({
-    where: levelsFilter,
-  });
-  return levelsDoc?.levels.includes(levelCode)
-    ? school === UTC
-      ? UTCBYUANE
-      : ULABYUANE
-    : school;
 };
