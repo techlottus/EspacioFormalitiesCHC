@@ -10,6 +10,4 @@ export * from './social-service.repository';
 export * from './calendars.repository';
 export * from './scholarship.repository';
 export * from './academic-levels.repository';
-export * from './photostatic-copy-of-document.repository';
-export * from './document-copy.repository';
 export * from './qr-validation.repository';

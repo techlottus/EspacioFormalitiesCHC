@@ -35,6 +35,12 @@ export class Delivery extends Entity {
   })
   school: string;
 
+  @property({
+    type: 'string',
+    hidden: true
+  })
+  identifier: string;
+  
   constructor(data?: Partial<Delivery>) {
     super(data);
   }

@@ -188,6 +188,7 @@ export class StudyCertificateGetService {
       procedure: STUDY_CERTIFICATE,
     };
     dcStudyCertArray = await this.detailCodesRepository.find({where: dcFilter});
+    logger.trace(`Study cert array: ${JSON.stringify(dcStudyCertArray)}`);
     if (!dcStudyCertArray.length)
       throw noDocFoundError(DETAIL_CODES_COLLECTION_NAME, dcFilter);
     switch (school) {
@@ -371,7 +372,7 @@ export class StudyCertificateGetService {
     logMethodAccessDebug(
       this.setCertificateWithCostArrayUlaTraditional.name,
     );
-    const studyCertificateArray = await this.fetchStudyCertificateArray(ULA);
+    // const studyCertificateArray = await this.fetchStudyCertificateArray(ULA);
     dcStudyCertArray = dcStudyCertArray.filter(doc =>
       doc.modality!.includes(ESCOLARIZADA),
     );
