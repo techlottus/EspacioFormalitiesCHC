@@ -17,9 +17,7 @@ export * from './scholarship.model';
 export * from './sschc-response.model';
 export * from './social-service.model';
 export * from './study-certificate.model';
-export * from './subject.model';
-export * from './photostatic-copy-of-document.model';
-export * from './document-copy.model'; // dependency: photostatic-copy-of-document model
+// export * from './subject.model';
 // Export all request body models
 export * from './request-body';
 export * from './qr-validation.model';

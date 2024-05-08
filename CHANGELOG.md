@@ -1,6 +1,38 @@
 
 # Changelog - SchoolServices - ConstHistCert
 
+## [2.5.0] - 2024-05-08
+René Alejandro Rivas
+
+### Changed:
+- AcademicRecordController now uses fetchDeliveryWithQrAndCampusArrays()
+to fetch delivery and campus
+- Delivery model: "identifier" property added to filter by qr delivery texts
+- Campus repo: fetchCampusArray() added
+- Delivery repo, 3 methods added:
+  - fetchDeliveryWithSchool()
+  - fetchDeliveryWithQr()
+  - fetchDeliveryArray()
+- CommonPropertiesService: fetchDeliveryWithQrAndCampusArrays() added
+
+### Deleted:
+- Controllers (not in use):
+  - copy of academic program
+  - document copy
+  - document loan
+  - duplicated tae
+  - good conduct
+  - proof of study uteg
+  - study certificate uteg
+- Models (not in use):
+  - photostatic copy of document
+  - subject
+- Repos:
+  - document copy
+  - photostatic copy of document
+- Services:
+  - document copy
+  
 ## [2.4.0] - 2024-02-27
 
 René Alejandro Rivas
