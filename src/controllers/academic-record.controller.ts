@@ -78,7 +78,7 @@ export class AcademicRecordController {
     // FETCH DATA
     const {delivery, campus} =
       await this.academicRecordService.commonPropertiesService.
-        fetchDeliveryAndCampusArrays(
+        fetchDeliveryWithQrAndCampusArrays(
           studentData.school,
         );
     // SEND RESPONSE

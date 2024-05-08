@@ -14,7 +14,6 @@ export * from './admission-certificate.service'; // Dependency: common-propertie
 export * from './authorization.service';  // Dependency: errors
 export * from './calendars.service';
 export * from './campus.service';  // Dependency: errors
-export * from './document-copy.service'; // Dependency: common-properties
 export * from './proof-of-study.service'; // Dependencies:
   // - costs
   // - errors

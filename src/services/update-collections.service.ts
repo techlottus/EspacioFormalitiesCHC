@@ -31,7 +31,6 @@ import {
 import {Campus, ProofOfStudy, Scholarship, StudyCertificate} from '../models';
 import {
   CampusRepository,
-  PhotostaticCopyOfDocumentRepository,
   ProofOfStudyRepository,
   ScholarshipRepository,
   StudyCertificateRepository,
@@ -61,8 +60,6 @@ export class UpdateCollectionsService {
     protected campusRepository: CampusRepository,
     @repository(ScholarshipRepository)
     protected scholarshipRepository: ScholarshipRepository,
-    @repository(PhotostaticCopyOfDocumentRepository)
-    protected photostaticCopyOfDocumentRepository: PhotostaticCopyOfDocumentRepository,
     @service(KeysService)
     protected keysService: KeysService,
     @service(SfCoreService)
@@ -414,29 +411,6 @@ export class UpdateCollectionsService {
     return this.checkDateChanged(
       lastUpdateDate,
       SCHOLARSHIP_COLLECTION_NAME,
-    );
-  }
-
-  // CHECKS IF DATE CHANGED IN PHOTOSTATICCOPYOFDOCUMENT COLLECTION
-  private async dateChangedOfPhotostaticCopyOfDocument(
-    school: string,
-  ): Promise<boolean> {
-    logMethodAccessTrace(this.dateChangedOfPhotostaticCopyOfDocument.name);
-    const somePhotostaticDocument =
-      await this.photostaticCopyOfDocumentRepository.findOne({
-        where: {school},
-      });
-    if (!somePhotostaticDocument) {
-      logger.warn(
-        `There are no documents with school '${school}' at ` +
-        `'${DOCUMENT_COPY_COLLECTION_NAME}' collection`,
-      );
-      return true;
-    }
-    const lastUpdateDate = parseDate(somePhotostaticDocument.date);
-    return this.checkDateChanged(
-      lastUpdateDate,
-      DOCUMENT_COPY_COLLECTION_NAME,
     );
   }
 
