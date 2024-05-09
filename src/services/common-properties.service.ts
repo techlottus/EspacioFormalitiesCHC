@@ -36,36 +36,19 @@ export class CommonPropertiesService {
     protected campusRepository: CampusRepository,
   ) { }
 
-  async fetchDeliveryArray(school: string) {
-    logMethodAccessDebug(this.fetchDeliveryArray.name);
-    const filter = {school};
-    const deliveryArray = await this.deliveryRepository.find({where: filter});
-    if (!deliveryArray.length)
-      throw noDocFoundError(
-        DELIVERY_COLLECTION_NAME,
-        filter
-      );
-    logger.debug('Delivery array fetched');
-    return deliveryArray;
-  }
-
-  async fetchCampusArray(school: string) {
-    logMethodAccessDebug(this.fetchCampusArray.name);
-    const filter = {school};
-    const campusArray = await this.campusRepository.find({where: filter});
-    if (!campusArray.length)
-      throw noDocFoundError(
-        CAMPUS_COLLECTION_NAME,
-        filter
-      );
-    logger.debug('Campus array fetched');
-    return campusArray;
-  }
-
   async fetchDeliveryAndCampusArrays(school: string) {
     logMethodAccessTrace(this.fetchDeliveryAndCampusArrays.name);
-    const delivery = await this.fetchDeliveryArray(school);
-    const campus = await this.fetchCampusArray(school);
+    const delivery =
+      await this.deliveryRepository.fetchDeliveryWithSchool(school);
+    const campus = await this.campusRepository.fetchCampusArray(school);
+    return {delivery, campus};
+  }
+
+  async fetchDeliveryWithQrAndCampusArrays(school: string) {
+    logMethodAccessTrace(this.fetchDeliveryAndCampusArrays.name);
+    const delivery =
+      await this.deliveryRepository.fetchDeliveryWithQr();
+    const campus = await this.campusRepository.fetchCampusArray(school);
     return {delivery, campus};
   }
 

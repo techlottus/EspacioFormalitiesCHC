@@ -53,7 +53,7 @@ export class AcademicRecordService {
     }
   }
 
-  logIfDataWillBeSaved(
+  private logIfDataWillBeSaved(
     saveProcedureData: boolean,
     deliveryLabel: string
   ) {
