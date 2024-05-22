@@ -52,6 +52,7 @@ export class ReportCardService {
         );
       reportCardArray = reportCardServiceResponse.data;
     } catch (err) {
+      console.log(err)
       throw this.errorsService.setHttpErrorResponse(
         err.statusCode,
         err.message,
@@ -68,7 +69,8 @@ export class ReportCardService {
     periodCode: string,
   ) {
     logMethodAccessTrace(this.setReportCardServiceUrl.name);
-    return REPORT_CARD_SERVICE_URL + '?programa=' + programKey +
+    const realProgramKey = programKey.split("-")[0]
+    return REPORT_CARD_SERVICE_URL + '?programa=' + realProgramKey +
       '&periodo=' + periodCode;
   }
 
