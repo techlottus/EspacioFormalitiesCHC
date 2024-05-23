@@ -1,3 +1,6 @@
+
+![Alt](https://repobeats.axiom.co/api/embed/95d34677c56a3c765df15c6c2b7f57b5c18a6242.svg "Repobeats analytics image")
+
 # school-services-consthistcert
 
 This application is generated using [LoopBack 4 CLI](https://loopback.io/doc/en/lb4/Command-line-interface.html) with the
@@ -75,4 +78,3 @@ understand how you can continue to add features to this application.
 [![LoopBack](https://github.com/loopbackio/loopback-next/raw/master/docs/site/imgs/branding/Powered-by-LoopBack-Badge-(blue)-@2x.png)](http://loopback.io/)
 
 
-![Alt](https://repobeats.axiom.co/api/embed/95d34677c56a3c765df15c6c2b7f57b5c18a6242.svg "Repobeats analytics image")
