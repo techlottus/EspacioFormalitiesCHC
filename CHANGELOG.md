@@ -1,6 +1,13 @@
 
 # Changelog - SchoolServices - ConstHistCert
 
+## [2.5.1] - 2024-05-21
+René Alejandro Rivas
+
+### Changed:
+- ReportCardService:
+  - realProgramKey fetched from programKey string sent by the user
+
 ## [2.5.0] - 2024-05-08
 René Alejandro Rivas
 
@@ -32,7 +39,7 @@ to fetch delivery and campus
   - photostatic copy of document
 - Services:
   - document copy
-  
+
 ## [2.4.0] - 2024-02-27
 
 René Alejandro Rivas
