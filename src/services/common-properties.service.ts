@@ -10,6 +10,7 @@ import {
   CAMPUS_COLLECTION_NAME,
   CAMPUS_DELIVERY_VALUE,
   DELIVERY_COLLECTION_NAME,
+  ULA,
 } from '../constants';
 import {
   CommonServiceFields_ULA,
@@ -39,7 +40,7 @@ export class CommonPropertiesService {
   async fetchDeliveryAndCampusArrays(school: string) {
     logMethodAccessTrace(this.fetchDeliveryAndCampusArrays.name);
     const delivery =
-      await this.deliveryRepository.fetchDeliveryWithSchool(school);
+      await this.deliveryRepository.fetchDeliveryArray({school});
     const campus = await this.campusRepository.fetchCampusArray(school);
     return {delivery, campus};
   }
@@ -47,7 +48,21 @@ export class CommonPropertiesService {
   async fetchDeliveryWithQrAndCampusArrays(school: string) {
     logMethodAccessTrace(this.fetchDeliveryAndCampusArrays.name);
     const delivery =
-      await this.deliveryRepository.fetchDeliveryWithQr();
+      await this.deliveryRepository.fetchDeliveryArray({identifier: "QR"});
+    const campus = await this.campusRepository.fetchCampusArray(school);
+    return {delivery, campus};
+  }
+
+  async fetchPhysicalDeliveryAndCampusArrays(school: string) {
+    logMethodAccessTrace(this.fetchPhysicalDeliveryAndCampusArrays.name);
+    let deliveryFilter: object = {school}
+    if (school === ULA)
+      deliveryFilter = {
+        school,
+        value: "ENTE7E2C6"
+      }
+    const delivery =
+      await this.deliveryRepository.fetchDeliveryArray(deliveryFilter);
     const campus = await this.campusRepository.fetchCampusArray(school);
     return {delivery, campus};
   }
