@@ -1,6 +1,6 @@
 {
   "name": "school-services-consthistcert",
-  "version": "2.5.1",
+  "version": "2.6.0",
   "description": "Espacio: SchoolServices CHC microservice",
   "keywords": [
     "loopback-application",
