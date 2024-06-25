@@ -15,21 +15,8 @@ export class DeliveryRepository extends DefaultCrudRepository<
     super(Delivery, dataSource);
   }
 
-
-  async fetchDeliveryWithSchool(school: string){
-    logMethodAccessDebug(this.fetchDeliveryWithSchool.name);
-    const filter = {school};
-    return this.fetchDeliveryArray(filter);
-  }
-
-
-  async fetchDeliveryWithQr() {
-    logMethodAccessDebug(this.fetchDeliveryWithQr.name);
-    const filter = {identifier: "QR"}
-    return this.fetchDeliveryArray(filter);
-  }
-
-  private async fetchDeliveryArray(filter: object) {
+  async fetchDeliveryArray(filter: object) {
+    logMethodAccessDebug(this.fetchDeliveryArray.name);
     const deliveryArray = await this.find({where: filter});
     if (!deliveryArray.length)
       throw noDocFoundError(

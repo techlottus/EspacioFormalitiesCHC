@@ -213,7 +213,7 @@ export class StudyCertificateController {
       );
     const {delivery, campus} =
       await this.studyCertificatePostService.commonPropertiesService.
-        fetchDeliveryAndCampusArrays(
+        fetchPhysicalDeliveryAndCampusArrays(
           school,
         );
 

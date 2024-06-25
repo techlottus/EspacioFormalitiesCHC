@@ -1,6 +1,16 @@
 
 # Changelog - SchoolServices - ConstHistCert
 
+## [2.6.0] - 2024-06-20
+René Alejandro Rivas
+
+### Changed
+- StudyCertificateController: GET now uses fetchPhysicalDeliveryAndCampusArrays()
+to get delivery and campus arrays
+- DeliveryRepository: fetchDeliveryWithSchool() & fetchDeliveryWithQr() removed
+- CommonPropertiesService: fetchPhysicalDeliveryAndCampusArrays() to get
+delivery array just with the physical option
+
 ## [2.5.1] - 2024-05-21
 René Alejandro Rivas
 
