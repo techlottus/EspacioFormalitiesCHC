@@ -62,7 +62,6 @@ export const createIdWithPrefix = (
   const listWords = inputString.toUpperCase().split(' ');
   let identifier = '';
   listWords.forEach(word => {
-    // Tomar los DOS primeros caracteres (si la palabra tiene al menos 2 caracteres)
     const firstTwoChars =
       word.length >= 2 ? word.substring(0, 2) : word.charAt(0);
     identifier += firstTwoChars + word.length;
