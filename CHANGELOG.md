@@ -1,29 +1,41 @@
-
 # Changelog - SchoolServices - ConstHistCert
 
+## [2.6.1] - 2025-08-16
+
+Eduardo izquierdo Rojas
+fix in function createIdWithPrefix() when creating values
+
+- src/utils/utilities.ts
+
 ## [2.6.0] - 2024-06-20
+
 René Alejandro Rivas
 
 ### Changed
+
 - StudyCertificateController: GET now uses fetchPhysicalDeliveryAndCampusArrays()
-to get delivery and campus arrays
+  to get delivery and campus arrays
 - DeliveryRepository: fetchDeliveryWithSchool() & fetchDeliveryWithQr() removed
 - CommonPropertiesService: fetchPhysicalDeliveryAndCampusArrays() to get
-delivery array just with the physical option
+  delivery array just with the physical option
 
 ## [2.5.1] - 2024-05-21
+
 René Alejandro Rivas
 
 ### Changed:
+
 - ReportCardService:
   - realProgramKey fetched from programKey string sent by the user
 
 ## [2.5.0] - 2024-05-08
+
 René Alejandro Rivas
 
 ### Changed:
+
 - AcademicRecordController now uses fetchDeliveryWithQrAndCampusArrays()
-to fetch delivery and campus
+  to fetch delivery and campus
 - Delivery model: "identifier" property added to filter by qr delivery texts
 - Campus repo: fetchCampusArray() added
 - Delivery repo, 3 methods added:
@@ -33,6 +45,7 @@ to fetch delivery and campus
 - CommonPropertiesService: fetchDeliveryWithQrAndCampusArrays() added
 
 ### Deleted:
+
 - Controllers (not in use):
   - copy of academic program
   - document copy
@@ -55,28 +68,31 @@ to fetch delivery and campus
 René Alejandro Rivas
 
 ### Changed:
+
 - Academic record unit test updated
 - AcademicRecord controller: validation added to save data just for digital procedures
 - AcademicRecord Service: now validates delivery label and sends a flag to the
-controller to state if delivery is digital or not
+  controller to state if delivery is digital or not
 - changeSchoolNameByModality() moved from utilities to AcademicLevelsRepository
-to avoid circular dependency
+  to avoid circular dependency
 - ProofOfStudyService, StudyCertificateService & TransactionNumberService now consume
-changeSchoolNameByModality() from AcademicLevelsRepository
+  changeSchoolNameByModality() from AcademicLevelsRepository
 
 ## [2.3.2] - 2024-02-15
 
 René Alejandro Rivas
 
 ### Changed:
+
 - Calendars controller: validation added to set accurate message if some calendar
-is not sent
+  is not sent
 
 ## [2.3.1] - 2024-02-13
 
 René Alejandro Rivas
 
 ### Changed:
+
 - Calendar status message improved
 - Calendars controller simplified
 - Calendars model renamed to 'Calendar'
@@ -91,11 +107,13 @@ René Alejandro Rivas
 René Alejandro Rivas
 
 ### Added:
+
 - `qr-validation.model`
 - `qr-validation.repository`
   - saveProcedureData()
 
 ### Changed:
+
 - AcademicRecordController now uses saveProcedureData() to save academic record procedure request data.
 
 ## [2.2.0] - 2023-10-05
@@ -103,10 +121,11 @@ René Alejandro Rivas
 René Alejandro Rivas
 
 ### Changed:
+
 - Controllers:
   - ProgramChange:
     - now uses fetchDetailCodeProgramChange() from transactionNumber
-    service to fetch detail code
+      service to fetch detail code
     - now ueses getTransactionNumberWithDetailCode() to fetch trans number
 - Interfaces:
   - campusId added to studentData
@@ -116,7 +135,7 @@ René Alejandro Rivas
   - TransNumber:
     - fetchDetailCodeProgramChange() added
     - now fetchDetailCodeProgramChange() and fetchDetailCode() use fetchDetailCode()
-    from DetailCodes repo
+      from DetailCodes repo
 
 ## [2.1.1] - 2023-09-22
 
@@ -129,6 +148,7 @@ René Alejandro Rivas
 René Alejandro Rivas
 
 ### Changed
+
 - Interfaces:
   - AcademicHistoryData: 'semesters' renamed to 'areasData'
   - AreaDataInterface:
@@ -146,24 +166,25 @@ René Alejandro Rivas
   - AcademicHistory Proxy:
     - nombreArea added to SubjectDataAsInPermissionsService interface
 
-
 ## [2.0.0] - 2023-09-01
 
 René Alejandro Rivas
 
 ### Added:
+
 - Services:
   - ProgramChangeService: method added: setProgramChanceServiceProperties()
 
 ### Changed:
+
 - Node version updated to 18.17
 - Controllers:
   - ProgramChange: now uses ProgramChangeService to set service properties
 - Services:
   - AcademicRecordService: general refactor, now uses
-  setCommonPropertiesUlaWithDeliveryAndCampus() and
-  setCommonPropertiesUtcWithDeliveryAndCampus() from CommonPropertiesService
-  to set service properties
+    setCommonPropertiesUlaWithDeliveryAndCampus() and
+    setCommonPropertiesUtcWithDeliveryAndCampus() from CommonPropertiesService
+    to set service properties
   - CommonPropertiesService:
     - methods added:
       - setCommonPropertiesUlaWithDeliveryAndCampus()
@@ -171,15 +192,15 @@ René Alejandro Rivas
     - now setCommonPropertiesUtc() doesn't set nor delivery nor campus properties
   - ProofOfStudyService:
     - now setProofOfStudyServicePropertiesULA() doesn't use methods from
-    AcademicRecordService but from CommonPropertiesService
+      AcademicRecordService but from CommonPropertiesService
   - ScholarshipService.
     - UTC case added to the switch inside setScholarshipServiceProperties()
   - StudyCertificateService:
     - now setStudyCertificatePropertiesUtc() uses
-    setCommonPropertiesUtcWithDeliveryAndCampus() from CommonPropertiesService
+      setCommonPropertiesUtcWithDeliveryAndCampus() from CommonPropertiesService
     - now setStudyCertificatePropertiesUla() uses
-    setCommonPropertiesUlaWithDeliveryAndCampus() from CommonPropertiesService
-    instead of AcademicRecordService
+      setCommonPropertiesUlaWithDeliveryAndCampus() from CommonPropertiesService
+      instead of AcademicRecordService
   - UpdateCollectionsService: now uses logNoDocFound() utility
 - Utilities:
   - logNoDocFound() added
@@ -192,17 +213,18 @@ René Alejandro Rivas
 
 - AcademicHistoryService:
   - **bugfix** at setCardData(), totalCredits is setted with creditosTotales
-  property
+    property
   - setSemesterAverage() added to calculate semester average
   - roundTo() added to round a float number
   - setSemesterAverage() used to set semesterAverage of every semester object in
-  semesters array
+    semesters array
 
 ## [1.52.2] - 2023-08-14
 
 René Alejandro Rivas
 
 ### Changed:
+
 - Interfaces:
   - `report-card.interface`: PartialWithNumbersInterface added
 - Services:
@@ -214,17 +236,19 @@ René Alejandro Rivas
 René Alejandro Rivas
 
 ### Changed:
+
 - ReportCardService: validation for debt added to setPartialAverages()
-  if there is a debt, then partialAverage is setted to '*'
+  if there is a debt, then partialAverage is setted to '\*'
 
 ## [1.52.0] - 2023-08-12
 
 René Alejandro Rivas
 
 ### Changed:
+
 - Controllers:
   - ReportCardController: setPartialAverages() used from ReportCardService to
-  set partialAverages data
+    set partialAverages data
 - Interfaces:
   - `report-card.interface`: PartialAverageInterface added
 - Models:
@@ -233,13 +257,14 @@ René Alejandro Rivas
   - `report-card.openAPI`: partialAverages field added
 - Services:
   - ReportCardService: setPartialAverages() public method added
-  `report-card.proxy.service`: promPn fields moved to PartialsData
+    `report-card.proxy.service`: promPn fields moved to PartialsData
 
 ## [1.51.0] - 2023-08-11
 
 René Alejandro Rivas
 
 ### Added:
+
 - Interfaces:
   - `academic-history.interface`
   - `general.interface`
@@ -284,6 +309,7 @@ René Alejandro Rivas
     - provider class
 
 ### Changed:
+
 - Constants:
   - permissions constants added:
     - REPORT_CARD_SERVICE_URL
@@ -298,9 +324,10 @@ René Alejandro Rivas
     - fetchCampusData
 
 ### Deleted:
+
 - Interfaces:
-  - `salesforce-request-body.interface` moved to ``general.interface``
-  - `student-data.interface` moved to ``general.interface``
+  - `salesforce-request-body.interface` moved to `general.interface`
+  - `student-data.interface` moved to `general.interface`
 - Models:
   - `semester.model` not used
 
@@ -309,9 +336,11 @@ René Alejandro Rivas
 René Alejandro Rivas
 
 ### Added:
+
 - AcademicHistory proxy service added. File is still empty
 
 ### Changed:
+
 - Datasource:
   - getCostsOfDetailIds() added to `payments.datasource`
   - URL is now a parameter
@@ -329,10 +358,10 @@ René Alejandro Rivas
 - Services:
   - CommonPropertiesService:
     - **bugfix** at setCommonServiceProperties_UTC, validation for delivery
-    and campus removed
+      and campus removed
   - ReportCardService:
     - setMaxAbsences() added to fetch maximum number of absences allowed per
-    period modality
+      period modality
   - Payments proxy service:
     - URL added to fetchTransactionNumberFromPayments()
   - Costs proxy service:
@@ -344,6 +373,7 @@ René Alejandro Rivas
     - this is a **bugfix**
 
 ### Removed:
+
 - ReportCardRB model (moved to AcademicHistoryRB)
 - Costs datasource (not needed, payments datasource used instead)
 
@@ -352,6 +382,7 @@ René Alejandro Rivas
 René Alejandro Rivas
 
 ### Changed:
+
 - Constants:
   - SF_PROCEDURE_REQUEST_UTEG_URL added to `salesforce.constants`
 - Controllers:
@@ -369,6 +400,7 @@ René Alejandro Rivas
   - Transaction: fetchDetailCode() added
 
 ### Removed:
+
 - Models: (not needed)
   - AcademicHistory
   - ProgramsOptions
@@ -387,59 +419,61 @@ René Alejandro Rivas
 
 - StudyCertificateGetService:
   - fetchRequirementById() method now has 'requirementsArray' as optional
-  parameter and fetches array if it's not provided
+    parameter and fetches array if it's not provided
   - matchDetailIdWithCostsAndStudyCertificates() added. This method matches
-  study certificates with detailIds and with the cost of every certificate. It's
-  used both for ULA and UTEG brands.
+    study certificates with detailIds and with the cost of every certificate. It's
+    used both for ULA and UTEG brands.
   - UTEG case was added to the select of school and uses
-  matchDetailIdWithCostsAndStudyCertificates() to set the array
+    matchDetailIdWithCostsAndStudyCertificates() to set the array
   - validation for detail ids added to setCertificateWithCostsArrayUtc()
   - methods for ULA now require just modality, not the whole student data
   - studyCertificateArray is no longer a required argument, it's fetched inside
-  the method
+    the method
   - setCertificateWithCostArrayUlaTraditional() now uses
-  matchDetailIdWithCostsAndStudyCertificates()
+    matchDetailIdWithCostsAndStudyCertificates()
 
 ## [1.47.0] - 2023-07-28
 
 René Alejandro Rivas
 
 ### Changed:
+
 - Controllers:
   - StudyCertificateUteg controller now consumes study certificate post service
-  to set service object that will be sent to salesforce's service
+    to set service object that will be sent to salesforce's service
 - Interfaces:
   - CertificateServiceFields_UTEG() added to `service-objects-sf-uteg`
 - Services:
   - setStudyCertificateServiceProperties_UTEG() added to
-  `study-certificate-post.service`
+    `study-certificate-post.service`
 
 ## [1.46.0] - 2023-07-26
 
 René Alejandro Rivas
 
 ### Changed:
+
 - Constants:
   - duplicatedTae added
 - Controller:
   - DuplicatedTae:
     - two dependencies added: CommonPropertiesServices, RequestProcedureService
-    to set service properties and to set the payload that will be sent to
-    salesforce's service
+      to set service properties and to set the payload that will be sent to
+      salesforce's service
   - GoodConduct:
     - now payload to salesforce's service is setted via RequestProcedureService
   - ProofOfStudyUteg:
     - ProofOfStudy service and UpdateCollections service are used to update and
-    fetch data for GET endpoint instead of the repositories.
+      fetch data for GET endpoint instead of the repositories.
     - proofofStudy service to set service properties
     - request procedure service to set request body to salesforce's service
 - Interfaces:
   - ProofOfStudyServiceFieldsUteg added to UTEG interfaces
 - Services:
   - Keys service: fetchKeyWithModality() and fetchKey() merged into one single
-  method
+    method
   - ProofOfStudy service: setProofOfStudyServicePropertiesUteg() added to set
-  proofOfStudy UTEG service properties
+    proofOfStudy UTEG service properties
   - SfCore service: UTEG route added to fetch salesforce's accessToken
   - UpdateCollections service: bugfix at dateChangedOfProofOfStudy() for UTC
 
@@ -448,18 +482,19 @@ René Alejandro Rivas
 René Alejandro Rivas
 
 ### Changed:
+
 - Controllers:
   - GoodConduct: now uses CommonProperties service to fetch delivery data and to
-  set service properties.
+    set service properties.
 - Models:
   - CertificateFiles model placed inside study-certificate.rb.model
   - CommonsRB now includes 'delivery, 'campus' and 'chargeAccepted' as optional
-  properties.
+    properties.
 - Services:
   - common-properties.service:
     - fetchDeliveryArray() & fetchCampusArray() added
     - at setCommonServicioProperties_UTEG() a validation to add delivery property
-    was added
+      was added
   - studyCertificateGet servicice:
     - validation to not display certificate for level 03 removed, as requested
   - update-collections: logMethodAccessInfo() used in some methods
@@ -467,21 +502,22 @@ René Alejandro Rivas
   - logMethodAccessInfo() added
 
 ### Deleted:
+
 - AcademicRecord request body deleted, now CommonsRB is used instead
 - GoodConduct request body deleted, CommonsRB is used instead
-
 
 ## [1.44.1] - 2023-07-21
 
 René Alejandro Rivas
 
 ### Changed:
+
 - Constants: some study certificate identifiers added
 - Controllers:
   - StudyCertificate updated with levelCode to fetch requirements array
   - StudyCertificate (uteg):
     - now it uses StudyCertificate service to fetch study certificate array
-    and requirements data
+      and requirements data
 - Models:
   - StudyCertificate: CertificateRequirements model completely refactored
 - Services:
@@ -492,7 +528,6 @@ René Alejandro Rivas
     - validations added to optional fields
 - Utils:
   - bugfix at undefinedFieldInDoc()
-
 
 ## [1.44.0] - 2023-07-20
 
@@ -506,18 +541,18 @@ René Alejandro Rivas
 - Models:
   - files-certificate renamed to certificate-files
   - flags-certificate renamed to certificate-flags. 'certificareRequirements'
-  property removed from the model
+    property removed from the model
   - study-certificate:
     - CertificateRequirements model added to study-certificate.model to set all
-    properties of the requirements for study certificate
+      properties of the requirements for study certificate
     - now StudyCertificate model extends from CertificateRequirements
 - Services:
   - proofOfStudy: bugfix at sendToSedena validation
   - study-certificate-get.service:
     - refactor of setStudyCertFlags() method, modality
-    validation was removed and doesn't include certificate requirements
+      validation was removed and doesn't include certificate requirements
     - setRequirementsObject() method added to handle arrays of requirements for
-    all of the different types of certificates
+      all of the different types of certificates
 
 ## [1.43.1] - 2023-07-19
 
