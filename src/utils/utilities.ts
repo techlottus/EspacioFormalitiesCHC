@@ -15,14 +15,13 @@ export const logMethodAccessTrace = (methodName: string) => {
   logger.trace(`${methodName}() accessed`);
 };
 
-export const logNoDocFound = (
-  collectionName: string,
-  filter: object
-) => {
-  logger.warn(`No documents found in '${collectionName}' collection ` +
-    `with: ${JSON.stringify(filter)}`);
+export const logNoDocFound = (collectionName: string, filter: object) => {
+  logger.warn(
+    `No documents found in '${collectionName}' collection ` +
+      `with: ${JSON.stringify(filter)}`,
+  );
   return true;
-}
+};
 
 // NUMERIC ID GENERATOR 16 DIGITS
 export const createId = (input_string: string): number => {
@@ -63,7 +62,9 @@ export const createIdWithPrefix = (
   const listWords = inputString.toUpperCase().split(' ');
   let identifier = '';
   listWords.forEach(word => {
-    identifier += word.charAt(0) + word.length;
+    const firstTwoChars =
+      word.length >= 2 ? word.substring(0, 2) : word.charAt(0);
+    identifier += firstTwoChars + word.length;
   });
   identifier = prefix.substring(0, 3).toUpperCase() + identifier;
   if (listWords.length === 1) {
