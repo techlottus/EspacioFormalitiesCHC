@@ -1,9 +1,9 @@
 # Changelog - SchoolServices - ConstHistCert
 
-## [2.6.1] - 2025-08-16
+## [2.6.2] - 2025-08-16
 
 Eduardo izquierdo Rojas
-fix in function createIdWithPrefix() when creating values
+return function createIdWithPrefix() when creating values with one caracter
 
 - src/utils/utilities.ts
 
