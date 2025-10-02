@@ -1,5 +1,15 @@
 # Changelog - SchoolServices - ConstHistCert
 
+## [2.6.3] - 2025-10-02
+
+Eduardo Izquierdo Rojas
+
+### Changed:
+
+Corraction to get calendars UTC
+
+- src/services/calendars.service.ts
+
 ## [2.6.2] - 2025-08-16
 
 Eduardo izquierdo Rojas
