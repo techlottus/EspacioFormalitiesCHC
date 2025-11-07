@@ -1,7 +1,11 @@
 import {BindingScope, injectable} from '@loopback/core';
 import {repository} from '@loopback/repository';
 import {
-  CALENDARS, CALENDAR_COLLECTION_NAME, ULA, URL_CALENDAR, UTC
+  CALENDARS,
+  CALENDAR_COLLECTION_NAME,
+  ULA,
+  URL_CALENDAR,
+  UTC,
 } from '../constants';
 import {CalendarsObject} from '../interfaces';
 import {Calendar} from '../models';
@@ -12,7 +16,7 @@ import {
   logMethodAccessTrace,
   logger,
   noDocFoundError,
-  schoolError
+  schoolError,
 } from '../utils';
 
 @injectable({scope: BindingScope.TRANSIENT})
@@ -22,23 +26,19 @@ export class CalendarsService {
     protected calendarsRepository: CalendarsRepository,
     @repository(AcademicLevelsRepository)
     protected academicLevelsRepository: AcademicLevelsRepository,
-  ) { }
+  ) {}
 
-  async getCalendars(
-    school: string,
-    levelCode: string,
-    periodCode: string,
-  ) {
+  async getCalendars(school: string, levelCode: string, periodCode: string) {
     logMethodAccessTrace(this.getCalendars.name);
     switch (school) {
       case UTC:
-        return this.getCalendarsUtc();
+        return this.getCalendarsUtc(levelCode);
       case ULA:
         return this.getCalendarsUla(levelCode, periodCode);
       default:
         throw schoolError(school);
     }
-  };
+  }
 
   private async getCalendarsUla(
     levelCode: string,
@@ -49,30 +49,28 @@ export class CalendarsService {
 
     const levelsFilter = {
       school: ULA,
-      identifier: CALENDARS
+      identifier: CALENDARS,
     };
     const levelsDoc = await this.academicLevelsRepository.findOne({
-      where: levelsFilter
+      where: levelsFilter,
     });
-    if (!levelsDoc)
-      throw noDocFoundError(
-        'AcademicLevels',
-        levelsFilter
-      );
+    if (!levelsDoc) throw noDocFoundError('AcademicLevels', levelsFilter);
 
     const calendarsFilter = {
       school: ULA,
       selector: URL_CALENDAR,
     };
     const calendarsArray = await this.calendarsRepository.find({
-      where: calendarsFilter
+      where: calendarsFilter,
     });
 
     const levelsOnlineWa = levelsDoc.levels;
     if (levelsOnlineWa.includes(levelCode)) {
       // So modality is online
-      logger.debug(`Academic level ${levelCode} is included in 'levelsOnlineWa'`
-        + ` array, filtering calendars with 'year' field`);
+      logger.debug(
+        `Academic level ${levelCode} is included in 'levelsOnlineWa'` +
+          ` array, filtering calendars with 'year' field`,
+      );
       // VALIDATE SCHOLAR YEAR
       const date = new Date();
       const month = date.getMonth();
@@ -80,73 +78,109 @@ export class CalendarsService {
       let scholarYear = year;
 
       if (month + 1 >= 9) scholarYear = year + 1;
-      calendarsFiltered = calendarsArray.filter(calendar => (
-        calendar.academicLevels.includes(levelCode) &&
-        calendar.year == scholarYear
-      ));
+      calendarsFiltered = calendarsArray.filter(
+        calendar =>
+          calendar.academicLevels.includes(levelCode) &&
+          calendar.year == scholarYear,
+      );
       if (!calendarsFiltered.length)
-        logger.error(`No calendars found with level code '${levelCode}' ` +
-          `and year '${scholarYear}'`);
+        logger.error(
+          `No calendars found with level code '${levelCode}' ` +
+            `and year '${scholarYear}'`,
+        );
 
       return this.calendarsResponse(calendarsFiltered);
     } else {
       // So modality is: escolarizada
-      logger.debug(`Academic level ${levelCode} is NOT included in`
-        + ` 'levelsOnlineWa' array, filtering calendars with 'period' field`);
+      logger.debug(
+        `Academic level ${levelCode} is NOT included in` +
+          ` 'levelsOnlineWa' array, filtering calendars with 'period' field`,
+      );
       const periodSufix = periodCode.substring(4, 6);
       logger.debug(`Period sufix: ${periodSufix}`);
-      calendarsFiltered = calendarsArray.filter(calendar => (
-        calendar.academicLevels.includes(levelCode) &&
-        calendar.periods.includes(periodSufix)
-      ));
+      calendarsFiltered = calendarsArray.filter(
+        calendar =>
+          calendar.academicLevels.includes(levelCode) &&
+          calendar.periods.includes(periodSufix),
+      );
       if (!calendarsFiltered.length)
-        logger.error(`No calendars found with level code '${levelCode}' ` +
-          `and period code '${periodCode}'`);
+        logger.error(
+          `No calendars found with level code '${levelCode}' ` +
+            `and period code '${periodCode}'`,
+        );
       return this.calendarsResponse(calendarsFiltered);
     }
   }
 
-  private async getCalendarsUtc(): Promise<CalendarsObject> {
-    logMethodAccessInfo(this.getCalendarsUtc.name);
+  private async getCalendarsUtc(levelCode: string): Promise<CalendarsObject> {
+    logMethodAccessInfo(this.getCalendarsUla.name);
+    let calendarsFiltered: Calendar[] = [];
+
+    const levelsFilter = {
+      school: UTC,
+      identifier: CALENDARS,
+    };
+    const levelsDoc = await this.academicLevelsRepository.findOne({
+      where: levelsFilter,
+    });
+    if (!levelsDoc) throw noDocFoundError('AcademicLevels', levelsFilter);
 
     const filter = {
       school: UTC,
       selector: URL_CALENDAR,
     };
     const calendarsArray = await this.calendarsRepository.find({
-      where: filter
+      where: filter,
     });
     if (!calendarsArray.length)
-      throw noDocFoundError(
-        CALENDAR_COLLECTION_NAME,
-        filter
+      throw noDocFoundError(CALENDAR_COLLECTION_NAME, filter);
+
+    const levelsOnlineWa = levelsDoc.levels;
+    if (levelsOnlineWa.includes(levelCode)) {
+      // online
+      logger.info(
+        `Online calendars have been selected in level:'${levelCode}' `,
       );
 
-    return this.calendarsResponse(calendarsArray);
+      calendarsFiltered = calendarsArray.filter(calendar =>
+        calendar.academicLevels.includes(levelCode),
+      );
+
+      if (!calendarsFiltered.length)
+        logger.error(
+          `No calendars found with level code for online levels: '${levelCode}' `,
+        );
+
+      return this.calendarsResponse(calendarsFiltered);
+    } else {
+      // escolarizada
+      logger.info(
+        `Face to face calendars have been selected in level:'${levelCode}' `,
+      );
+
+      calendarsFiltered = calendarsArray.filter(calendar =>
+        calendar.academicLevels.includes(levelCode),
+      );
+      if (!calendarsFiltered.length)
+        logger.error(`No calendars found with level code: '${levelCode}' `);
+
+      return this.calendarsResponse(calendarsFiltered);
+    }
   }
 
   private calendarsResponse(calendarsArray: Calendar[]) {
     logMethodAccessDebug(this.calendarsResponse.name);
     return {
-      desk: this.setCalendarObject(
-        calendarsArray,
-        'desktop'
-      ),
-      mobile: this.setCalendarObject(
-        calendarsArray,
-        'mobile'
-      )
-    }
+      desk: this.setCalendarObject(calendarsArray, 'desktop'),
+      mobile: this.setCalendarObject(calendarsArray, 'mobile'),
+    };
   }
 
-  private setCalendarObject(
-    calendarsArray: Calendar[],
-    view: string
-  ) {
+  private setCalendarObject(calendarsArray: Calendar[], view: string) {
     const calendar = calendarsArray.find(cal => cal.view === view);
     if (!calendar) {
       logger.fatal(`No calendar found for ${view} view`);
-      return {}
+      return {};
     }
     const calendarObject = {
       name: calendar.name,
@@ -157,5 +191,4 @@ export class CalendarsService {
     logger.info(`Calendar object setted for '${view}' view`);
     return calendarObject;
   }
-
 }

@@ -15,14 +15,13 @@ export const logMethodAccessTrace = (methodName: string) => {
   logger.trace(`${methodName}() accessed`);
 };
 
-export const logNoDocFound = (
-  collectionName: string,
-  filter: object
-) => {
-  logger.warn(`No documents found in '${collectionName}' collection ` +
-    `with: ${JSON.stringify(filter)}`);
+export const logNoDocFound = (collectionName: string, filter: object) => {
+  logger.warn(
+    `No documents found in '${collectionName}' collection ` +
+      `with: ${JSON.stringify(filter)}`,
+  );
   return true;
-}
+};
 
 // NUMERIC ID GENERATOR 16 DIGITS
 export const createId = (input_string: string): number => {
