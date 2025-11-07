@@ -20,7 +20,8 @@ export class QrValidationRepository extends DefaultCrudRepository<
   async saveProcedureData(
     studentData: StudentData,
     procedureName: string,
-    sfTicketNumber: string
+    sfTicketNumber: string,
+    delivery: string
   ) {
     logMethodAccessInfo(this.saveProcedureData.name);
     const procedureData = new QrValidation({
@@ -30,7 +31,8 @@ export class QrValidationRepository extends DefaultCrudRepository<
       email: studentData.email,
       campus: studentData.campus,
       procedureName,
-      sfTicketNumber
+      sfTicketNumber,
+      delivery
     });
     const procedureDataSaved = await this.create(procedureData);
     logger.info(

@@ -23,31 +23,21 @@ export class AcademicRecordService {
   ) {
     logMethodAccessInfo(this.setAcademicRecordServiceProperties.name);
     let serviceObject: CommonServiceFields_ULA | CommonServiceFields_UTC;
-    let deliveryLabel: string;
-    let saveProcedureData = false;
     switch (studentData.school) {
       case ULA:
-        serviceObject = await this.commonPropertiesService.
+        return this.commonPropertiesService.
           setCommonPropertiesUlaWithDeliveryAndCampus(
             studentData,
             requestBody,
             ACADEMIC_RECORD
           );
-        deliveryLabel = serviceObject.Forma_de_Entrega__c!;
-        if (deliveryLabel === DIGITAL_ULA_LABEL) saveProcedureData = true;
-        this.logIfDataWillBeSaved(saveProcedureData, deliveryLabel)
-        return {serviceObject, saveProcedureData}
       case UTC:
-        serviceObject = await this.commonPropertiesService.
+        return this.commonPropertiesService.
           setCommonPropertiesUtcWithDeliveryAndCampus(
             studentData,
             requestBody,
             ACADEMIC_RECORD
           );
-        deliveryLabel = serviceObject.Tipo_de_Entrega_UTC__c!;
-        if (deliveryLabel === DIGITAL_UTC_LABEL) saveProcedureData = true;
-        this.logIfDataWillBeSaved(saveProcedureData, deliveryLabel);
-        return {serviceObject, saveProcedureData}
       default:
         throw schoolError(studentData.school);
     }
