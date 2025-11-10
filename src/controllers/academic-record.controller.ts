@@ -117,7 +117,7 @@ export class AcademicRecordController {
     );
 
     // SET "SERVICIO" FIELDS
-    const {serviceObject, saveProcedureData} =
+    const serviceObject =
       await this.academicRecordService.setAcademicRecordServiceProperties(
         studentData,
         academicRecordRB,
@@ -148,10 +148,11 @@ export class AcademicRecordController {
       );
 
     // SAVE PROCEDURE DATA FOR FUTURE VALIDATION
-    if (saveProcedureData) await this.qrValidationRepository.saveProcedureData(
+    await this.qrValidationRepository.saveProcedureData(
       studentData,
       'Historial Academico',
-      ticketNumber
+      ticketNumber,
+      academicRecordRB.delivery ?? 'fisica'
     );
 
     // SEND OK RESPONSE

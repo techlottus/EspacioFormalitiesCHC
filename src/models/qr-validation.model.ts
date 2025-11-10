@@ -56,6 +56,12 @@ export class QrValidation extends Entity {
   })
   sfTicketNumber: string;
 
+  @property({
+    type: 'string',
+    required: true,
+  })
+  delivery: string;
+
   constructor(data?: Partial<QrValidation>) {
     super(data);
   }

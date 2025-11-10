@@ -1,5 +1,28 @@
 # Changelog - SchoolServices - ConstHistCert
 
+## [2.6.4] - 2025-11-07
+René Alejandro Rivas
+
+### Changed:
+- qr-validation.model:
+  - 'delivery' field added to QrValidation model
+- qr-validation.repo:
+  - 'delivery' attribute added to saveProcedureData()
+- academic-record.service:
+  - in setAcademicRecordServiceProperties() validation for delivery type removed
+- academic-record.controller:
+  - POST: validation for delivery type removed
+
+## [2.6.3] - 2025-10-02
+
+Eduardo Izquierdo Rojas
+
+### Changed:
+
+Corraction to get calendars UTC
+
+- src/services/calendars.service.ts
+
 ## [2.6.2] - 2025-08-16
 
 Eduardo izquierdo Rojas
