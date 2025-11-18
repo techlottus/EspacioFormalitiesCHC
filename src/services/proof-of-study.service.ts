@@ -363,25 +363,6 @@ export class ProofOfStudyService {
     }
   }
 
-  async setProofOfStudyServicePropertiesUteg(
-    studentData: StudentData,
-    requestBody: ProofOfStudyRB,
-  ) {
-    logMethodAccessInfo(this.setProofOfStudyServicePropertiesUteg.name);
-    const commonServiceFields: CommonServiceFields_UTEG =
-      this.commonPropertiesService.setCommonPropertiesUteg(
-        studentData,
-        requestBody
-      );
-    const posServiceFields: ProofOfStudyServiceFieldsUteg = {
-      ...commonServiceFields,
-      Constancia_UTEG__c: await this.setProofOfStudyLabel(
-        studentData.school,
-        requestBody.proofOfStudyType
-      )
-    }
-    return posServiceFields;
-  }
 
   // SETS PROOF OF STUDY LABEL
   private async setProofOfStudyLabel(
