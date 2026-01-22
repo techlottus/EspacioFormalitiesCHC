@@ -10,7 +10,7 @@ export class CampusService {
     protected campusProxyService: Campus,
     @service(ErrorsService)
     protected errorsService: ErrorsService,
-  ) { }
+  ) {}
 
   async getCampus(authHeader: string): Promise<CampusObject[]> {
     logMethodAccessDebug(this.getCampus.name);
@@ -18,7 +18,7 @@ export class CampusService {
     try {
       logger.info(
         `Trying to fetch campus array from 'permissions service' at ` +
-        `${PERMISSIONS_SERVICE_CAMPUS_URL}`
+          `${PERMISSIONS_SERVICE_CAMPUS_URL}`,
       );
       const permissionsResponse = await this.campusProxyService.fetchCampusData(
         authHeader,
@@ -26,7 +26,7 @@ export class CampusService {
         PERMISSIONS_SERVICE_CAMPUS_URL!,
       );
       logger.debug(
-        `permissionsResponse: ${JSON.stringify(permissionsResponse.data)}`
+        `permissionsResponse: ${JSON.stringify(permissionsResponse.data)}`,
       );
       campusArray = permissionsResponse.data;
     } catch (err) {
@@ -37,8 +37,15 @@ export class CampusService {
         'Permissions',
       );
     }
-    this.validateCampusResponse(campusArray);
-    return campusArray;
+
+    // Filtrar el array para excluir "UTC A TU RITMO"
+    const filteredCampus = campusArray.filter(
+      campus =>
+        campus.code !== 'UTR' && campus.salesForceName !== 'UTC A TU RITMO',
+    );
+
+    this.validateCampusResponse(filteredCampus);
+    return filteredCampus;
   }
 
   private validateCampusResponse(campusArray: CampusObject[]) {
