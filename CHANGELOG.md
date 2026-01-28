@@ -1,9 +1,21 @@
 # Changelog - SchoolServices - ConstHistCert
 
+## [2.6.5] - 2026-01-22
+
+Eduardo Izquierdo Rojas
+
+### Changed:
+
+linear SEREX-117: hide the 'UTC A TU RITMO' option in the campus array
+
+- src/services/campus.service.ts
+
 ## [2.6.4] - 2025-11-07
+
 René Alejandro Rivas
 
 ### Changed:
+
 - qr-validation.model:
   - 'delivery' field added to QrValidation model
 - qr-validation.repo:
